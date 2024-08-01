@@ -1,0 +1,66 @@
+<table class="border-2 my-10 min-w-full">
+  <thead>
+    <tr>
+      <th class="bg-gray-50 px-6 py-3 font-medium text-gray-500 text-left text-xs uppercase leading-4 tracking-wider">
+        Name</th>
+      <th class="bg-gray-50 px-6 py-3 font-medium text-gray-500 text-left text-xs uppercase leading-4 tracking-wider">
+        Image</th>
+      <th class="bg-gray-50 px-6 py-3 font-medium text-gray-500 text-left text-xs uppercase leading-4 tracking-wider">
+        Category</th>
+      <th class="bg-gray-50 px-6 py-3"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Add new employee row -->
+    <tr>
+      <td class="px-6 py-4 whitespace-no-wrap">
+        <input type="email"
+               class="border-gray-300 px-4 py-2 border focus:border-blue-500 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="Name">
+      </td>
+      <td class="px-6 py-4 whitespace-no-wrap">
+        <input type="file"
+               class="border-gray-300 px-4 py-2 border focus:border-blue-500 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="Image">
+      </td>
+      <td class="px-6 py-4 whitespace-no-wrap">
+        <input type="password"
+               class="border-gray-300 px-4 py-2 border focus:border-blue-500 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="Category">
+      </td>
+      <td class="px-6 py-4 whitespace-no-wrap">
+        <button class="bg-green-500 hover:bg-green-700 px-4 py-2 rounded font-bold text-white">
+          Add
+        </button>
+      </td>
+    </tr>
+    <!-- Existing employees rows -->
+    @for(record of records(); track record.id) {
+    <tr>
+      <td class="px-6 py-4 whitespace-no-wrap">
+        {{ record.name }}
+      </td>
+      <td class="px-6 py-4 whitespace-no-wrap">
+        <img [src]="record.img"
+             [alt]="record.name"
+             class="rounded-full w-16 h-16">
+      </td>
+      <td class="px-6 py-4 whitespace-no-wrap">
+        {{ record.category }}
+      </td>
+      <td class="px-6 py-4 whitespace-no-wrap">
+        <button class="bg-red-500 hover:bg-red-700 px-4 py-2 rounded font-bold text-white">
+          Delete
+        </button>
+
+
+        @if(isEmployee()) {
+        <button class="bg-red-500 hover:bg-red-700 px-4 py-2 rounded font-bold text-white">
+          Edit
+        </button>
+        }
+      </td>
+    </tr>
+    }
+  </tbody>
+</table>
