@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start:dev": "ng serve",
-    "build": "npm install --legacy-peer-deps && ng build --optimization=true",
+    "build": "npm install && ng build --optimization=true",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

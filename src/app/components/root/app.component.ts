@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { CookieService } from '../../core/services/cookie.service';
+import { JwtTokenService } from '../../core/services/jwt-token.service';
 
 
 @Component({
@@ -7,10 +9,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-
-  constructor() {
-  }
+  private readonly cookieService: CookieService = inject(CookieService);
+  private readonly jwtToken: JwtTokenService = inject(JwtTokenService);
 
   ngOnInit(): void {
+    if (this.cookieService.get('access_token')) {
+      this.jwtToken.setToken(this.cookieService.get('access_token'));
+      this.jwtToken.setUser();
+    }
   }
 }
