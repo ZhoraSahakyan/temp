@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  API_BASE_URL: import.meta.env['NG_APP_API_BASE_URL'],
+  API_BASE_URL: "http://157.230.218.45/api/v1"
 };
 
 /*

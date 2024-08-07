@@ -1,7 +1,7 @@
-import { Router } from '@angular/router';
 import { Component, inject, OnDestroy, OnInit, Signal, signal } from '@angular/core';
+import { Router } from '@angular/router';
 
-import { CookieService, UserDataProviderService } from '../../core/services';
+import { UserDataProviderService } from '../../core/services';
 import { User } from '../../core/models/interfaces/user';
 import { Subject, takeUntil } from 'rxjs';
 
@@ -12,7 +12,6 @@ import { Subject, takeUntil } from 'rxjs';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   private readonly userDataProviderService: UserDataProviderService = inject(UserDataProviderService);
-  private readonly cookieService: CookieService = inject(CookieService);
   private readonly router: Router = inject(Router);
 
   public isLoggedIn: Signal<boolean> = signal(false);
@@ -34,7 +33,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   public logout(): void {
     this.userDataProviderService.setUser(null);
-    this.cookieService.remove('access_token');
+    localStorage.clear();
 
     this.router.navigate(['/auth/login']);
   }

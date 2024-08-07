@@ -12,6 +12,7 @@ export class UserDataProviderService {
 
 
   setUser(user: User): void {
+    localStorage.setItem('user', JSON.stringify(user));
     this.user$.next(user);
   }
 

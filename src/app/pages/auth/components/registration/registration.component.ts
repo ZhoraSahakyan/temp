@@ -1,5 +1,5 @@
-import { ActivatedRoute, Router } from '@angular/router';
 import { Component, inject } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { AuthService } from '../../services/auth.service';
@@ -18,6 +18,7 @@ export class RegistrationComponent {
     name: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
+    password_confirmation: new FormControl('', [Validators.required]),
   });
 
   public register(): void {
@@ -25,9 +26,7 @@ export class RegistrationComponent {
       return;
     }
 
-    const { name, email, password } = this.registrationForm.value;
-
-    this.authService.register(name, email, password)
+    this.authService.register(this.registrationForm.getRawValue())
       .subscribe(
         () => {
           this.router.navigate(['login'], { relativeTo: this.route.parent });

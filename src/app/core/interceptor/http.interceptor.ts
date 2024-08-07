@@ -1,3 +1,4 @@
+import { Injectable } from '@angular/core';
 import {
   HttpEvent,
   HttpHandler,
@@ -5,7 +6,6 @@ import {
   HttpRequest,
   HttpResponse
 } from '@angular/common/http';
-import { Injectable } from '@angular/core';
 
 import { Observable, of } from 'rxjs';
 import { urls } from './interceptor';
@@ -18,19 +18,22 @@ export class HttpTokenInterceptor implements HttpInterceptor {
   }
 
   private handleRequests(request: HttpRequest<any>, next: HttpHandler): any {
-    const { url, method } = request;
+    const req = request.clone({
+      setHeaders: {
+        'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+      }
+    });
 
-    console.log('Request for url: ' + url);
-
+    console.log('Request for url: ' + req.url);
 
     for (const element of urls) {
-      if (url.includes(element.url)) {
+      if (req.url.includes(element.url)) {
 
-        console.log('Loaded from json for url: ' + url);
+        console.log('Loaded from json for url: ' + req.url);
         return of(new HttpResponse({ status: 200, body: ((element.json) as any) }));
 
       }
     }
-    return next.handle(request);
+    return next.handle(req);
   }
 }

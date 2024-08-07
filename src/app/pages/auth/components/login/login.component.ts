@@ -17,21 +17,28 @@ export class LoginComponent {
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required])
   });
+  public isLoading: boolean = false;
 
   public login(): void {
     if (this.loginForm.invalid) {
       return;
     }
 
-    const { email, password } = this.loginForm.value;
+    this.isLoading = true;
+    const { email, password } = this.loginForm.getRawValue();
 
     this.authService.login(email, password)
       .subscribe(
         () => {
+          console.log('Logged in successfully');
+
           this.router.navigate(['/admin']);
         },
         (error) => {
           console.error('Error logging in', error);
+        },
+        () => {
+          this.isLoading = false;
         }
       );
   }
